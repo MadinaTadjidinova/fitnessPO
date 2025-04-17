@@ -32,7 +32,8 @@ class ConditionsState(StatesGroup):
 @router.message(Command("set_plan"))
 @router.message(F.text == "Запланировать тренировку")
 async def set_plan(message: Message):
-    calendar = SimpleCalendar(locale="en_US", show_alerts=True)
+    calendar = SimpleCalendar(show_alerts=True)
+
 
     calendar.set_dates_range(datetime.today(), datetime(2025, 12, 31))
     await message.answer(
@@ -44,7 +45,8 @@ async def set_plan(message: Message):
 # simple calendar usage - filtering callbacks of calendar format
 @router.callback_query(SimpleCalendarCallback.filter())
 async def set_date(callback_query: CallbackQuery, callback_data: CallbackData, state: FSMContext):
-    calendar = SimpleCalendar(locale="en_US", show_alerts=True)
+    calendar = SimpleCalendar(show_alerts=True)
+
 
     calendar.set_dates_range(datetime(datetime.today().year, datetime.today().month, datetime.today().day),
                              datetime(datetime.today().year + 1, datetime.today().month, datetime.today().day))
